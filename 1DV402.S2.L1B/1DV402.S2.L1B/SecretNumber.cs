@@ -42,7 +42,13 @@ namespace _1DV402.S2.L1B
         {
             get { return _count; }
 
-            private set { _count += value; }
+            private set
+            {
+                if (_count < 7)
+                {
+                    _count += value;
+                }
+            }
         }
 
         public int GuessesLeft
@@ -83,6 +89,11 @@ namespace _1DV402.S2.L1B
 
             _guessedNumbers[_count] = number;
 
+            if (number < 1 || number > 100)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             for (int i = 0; i < 7; i++)
             {
                 if (_guessedNumbers[i] == number)
@@ -98,6 +109,11 @@ namespace _1DV402.S2.L1B
             else if (number > _number)
             {
                 toHigh = true;
+            }
+
+            if (alreadyGuessed == false)
+            {
+                Count++;
             }
 
             if (number == _number)
