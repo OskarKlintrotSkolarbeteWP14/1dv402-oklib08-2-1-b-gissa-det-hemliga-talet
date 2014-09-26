@@ -68,6 +68,10 @@ namespace _1DV402.S2.L1B
         #endregion
 
         #region Konstruktorer
+        public SecretNumber()
+        {
+            Initialize();
+        }
 
         #endregion
 
@@ -148,11 +152,6 @@ namespace _1DV402.S2.L1B
             //{
                 return false;
             //}
-        }
-
-        public SecretNumber()
-        {
-
         }
 
         #endregion
