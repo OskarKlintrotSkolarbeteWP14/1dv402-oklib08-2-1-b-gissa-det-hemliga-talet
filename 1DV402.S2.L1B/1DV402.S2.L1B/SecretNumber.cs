@@ -8,7 +8,7 @@ namespace _1DV402.S2.L1B
 {
     public class SecretNumber
     {
-        #region fält
+        #region Fields
 
         private int[] _guessedNumbers = new int[7];
         private int _number = 42;
@@ -18,12 +18,10 @@ namespace _1DV402.S2.L1B
 
         #endregion
 
-        #region Autoimplementerade egenskaper
-
-        #endregion
-
-        #region Egenskaper
-
+        #region Properties
+        /// <summary>
+        /// Checks if the user is allowed to make any guesses.
+        /// </summary>
         public bool CanMakeGuess
         {
             get
@@ -39,7 +37,9 @@ namespace _1DV402.S2.L1B
 
             private set { }
         }
-
+        /// <summary>
+        /// Counts how many tries the user had.
+        /// </summary>
         public int Count
         {
             get
@@ -52,7 +52,9 @@ namespace _1DV402.S2.L1B
                 _count = value;
             }
         }
-
+        /// <summary>
+        /// How many guesses that the user have remaining.
+        /// </summary>
         public int GuessesLeft
         {
             get {
@@ -67,7 +69,10 @@ namespace _1DV402.S2.L1B
 
         #endregion
 
-        #region Konstruktorer
+        #region Constructor
+        /// <summary>
+        /// Uses the method Initialize in order to reset the program.
+        /// </summary>
         public SecretNumber()
         {
             Initialize();
@@ -75,7 +80,7 @@ namespace _1DV402.S2.L1B
 
         #endregion
 
-        #region Metoder
+        #region Methods
         /// <summary>
         /// Cleans the array _guessedNumbers, set _correctNumberGuessed to false, _count to 0 and _number to a random number between 1-100.
         /// </summary>
@@ -90,7 +95,11 @@ namespace _1DV402.S2.L1B
             Random random = new Random();
             _number = random.Next(1, 100);
         }
-
+        /// <summary>
+        /// Let's the user try to find the secret number.
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns>bool</returns>
         public bool MakeGuess(int number)
         {
             bool alreadyGuessed = false;
