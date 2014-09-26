@@ -45,12 +45,6 @@ namespace _1DV402.S2.L1B
         {
             get
             {
-                //if (_count < 8)
-                //{
-                //    _count++;
-                //}
-
-                //return _count-1;
                 return _count;
             }
 
@@ -80,20 +74,10 @@ namespace _1DV402.S2.L1B
 
         #region Metoder
         /// <summary>
-        /// Cleans the array _guessedNumbers, sets _count to 0 and _number to a random number between 1-100.
+        /// Cleans the array _guessedNumbers, set _correctNumberGuessed to false, _count to 0 and _number to a random number between 1-100.
         /// </summary>
         public void Initialize()
         {
-            //for (int i = 0; i < _guessedNumbers.Length; i++)
-            //{
-            //    _guessedNumbers[i] = 0;
-            //}
-
-            //foreach (int i in _guessedNumbers)
-            //{
-            //    _guessedNumbers[i] = 0;
-            //}
-
             _correctNumberGuessed = false;
 
             Array.Clear(_guessedNumbers, 0, _guessedNumbers.Length);
@@ -119,29 +103,17 @@ namespace _1DV402.S2.L1B
                 throw new ApplicationException();
             }
 
-            //_guessedNumbers[Count] = number;
-
             if (number < 1 || number > 100)
             {
                 throw new ArgumentOutOfRangeException();
             }
 
-            //foreach (int guessedNumber in _guessedNumbers)
-            //{
-            //    if (number == guessedNumber)
-            //    {
-            //        Console.WriteLine(Strings.old_guess_prompt, number);
-            //        return false;
-            //    }
-            //}
-
-            for (int i = 0; i < _guessedNumbers.Length; i++)
+            foreach (int guessedNumber in _guessedNumbers)
             {
-                if (_guessedNumbers[i] == number)
+                if (number == guessedNumber)
                 {
                     Console.WriteLine(Strings.old_guess_prompt, number);
                     alreadyGuessed = true;
-                    //return false;
                 }
             }
 
@@ -151,7 +123,6 @@ namespace _1DV402.S2.L1B
             {
                 Count++;    
             }
-            
 
             if (number < _number)
             {
@@ -161,11 +132,6 @@ namespace _1DV402.S2.L1B
             {
                 toHigh = true;
             }
-
-            //if (alreadyGuessed == false)
-            //{
-            //    Count++;
-            //}
 
             if (number == _number)
             {
