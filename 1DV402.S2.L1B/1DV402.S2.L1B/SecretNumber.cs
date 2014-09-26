@@ -10,7 +10,6 @@ namespace _1DV402.S2.L1B
     {
         #region fält
 
-        private int _guessesMade = 0;
         private int[] _guessedNumbers = new int[7];
         private int _number = 42;
         private int _count = 0;
@@ -61,7 +60,7 @@ namespace _1DV402.S2.L1B
                 {
                     return 7;
                 }
-                return ((MaxNumberOfGuesses + 1) - _count); }
+                return (MaxNumberOfGuesses - Count); }
 
             private set { }
         }
@@ -86,19 +85,13 @@ namespace _1DV402.S2.L1B
 
             Random random = new Random();
             _number = random.Next(1, 100);
-
-            _guessesMade = 0;
         }
 
         public bool MakeGuess(int number)
         {
             bool alreadyGuessed = false;
-            bool toHigh = false;
-            bool toLow = false;
 
-            _guessesMade++;
-
-            if (_guessesMade > 7)
+            if (Count >= 7)
             {
                 throw new ApplicationException();
             }
@@ -112,12 +105,18 @@ namespace _1DV402.S2.L1B
             {
                 if (number == guessedNumber)
                 {
-                    Console.WriteLine(Strings.old_guess_prompt, number);
+                    //Console.WriteLine(Strings.old_guess_prompt, number);
                     alreadyGuessed = true;
                 }
             }
 
             _guessedNumbers[Count] = number;
+
+            if (alreadyGuessed == true)
+            {
+                Console.WriteLine(Strings.old_guess_prompt, number);
+                return false;
+            }
 
             if (alreadyGuessed == false)
             {
@@ -139,10 +138,16 @@ namespace _1DV402.S2.L1B
                 _correctNumberGuessed = true;
                 return true;
             }
-            else
+            
+            if (Count >= 7)
             {
-                return false;
+                Console.WriteLine(Strings.wrong_prompt, _number);
             }
+            
+            //else
+            //{
+                return false;
+            //}
         }
 
         public SecretNumber()
