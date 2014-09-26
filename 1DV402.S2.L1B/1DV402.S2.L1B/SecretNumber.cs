@@ -10,9 +10,11 @@ namespace _1DV402.S2.L1B
     {
         #region fält
 
+        private int _guessesMade = 0;
         private int[] _guessedNumbers = new int[7];
         private int _number = 42;
         private int _count = 0;
+        private bool _correctNumberGuessed = false;
         public const int MaxNumberOfGuesses = 7;
 
         #endregion
@@ -27,7 +29,8 @@ namespace _1DV402.S2.L1B
         {
             get
             {
-                if ( Count < 7) {
+                if (Count < 7 && _correctNumberGuessed == false)
+                {
                     return true;
                 }
                 else {
@@ -40,20 +43,31 @@ namespace _1DV402.S2.L1B
 
         public int Count
         {
-            get { return _count; }
+            get
+            {
+                //if (_count < 8)
+                //{
+                //    _count++;
+                //}
+
+                //return _count-1;
+                return _count;
+            }
 
             private set
             {
-                if (_count < 7)
-                {
-                    _count += value;
-                }
+                _count = value;
             }
         }
 
         public int GuessesLeft
         {
-            get { return (MaxNumberOfGuesses - Count); }
+            get {
+                if (0 == _count)
+                {
+                    return 7;
+                }
+                return ((MaxNumberOfGuesses + 1) - _count); }
 
             private set { }
         }
@@ -70,15 +84,26 @@ namespace _1DV402.S2.L1B
         /// </summary>
         public void Initialize()
         {
-            for (int i = 0; i < 7; i++)
-            {
-                _guessedNumbers[i] = 0;
-            }
+            //for (int i = 0; i < _guessedNumbers.Length; i++)
+            //{
+            //    _guessedNumbers[i] = 0;
+            //}
+
+            //foreach (int i in _guessedNumbers)
+            //{
+            //    _guessedNumbers[i] = 0;
+            //}
+
+            _correctNumberGuessed = false;
+
+            Array.Clear(_guessedNumbers, 0, _guessedNumbers.Length);
 
             _count = 0;
 
             Random random = new Random();
-            _number = random.Next(0, 101);
+            _number = random.Next(1, 100);
+
+            _guessesMade = 0;
         }
 
         public bool MakeGuess(int number)
@@ -87,37 +112,64 @@ namespace _1DV402.S2.L1B
             bool toHigh = false;
             bool toLow = false;
 
-            _guessedNumbers[_count] = number;
+            _guessesMade++;
+
+            if (_guessesMade > 7)
+            {
+                throw new ApplicationException();
+            }
+
+            //_guessedNumbers[Count] = number;
 
             if (number < 1 || number > 100)
             {
                 throw new ArgumentOutOfRangeException();
             }
 
-            for (int i = 0; i < 7; i++)
+            //foreach (int guessedNumber in _guessedNumbers)
+            //{
+            //    if (number == guessedNumber)
+            //    {
+            //        Console.WriteLine(Strings.old_guess_prompt, number);
+            //        return false;
+            //    }
+            //}
+
+            for (int i = 0; i < _guessedNumbers.Length; i++)
             {
                 if (_guessedNumbers[i] == number)
                 {
+                    Console.WriteLine(Strings.old_guess_prompt, number);
                     alreadyGuessed = true;
+                    //return false;
                 }
             }
+
+            _guessedNumbers[Count] = number;
+
+            if (alreadyGuessed == false)
+            {
+                Count++;    
+            }
+            
 
             if (number < _number)
             {
                 toLow = true;
             }
-            else if (number > _number)
+            if (number > _number)
             {
                 toHigh = true;
             }
 
-            if (alreadyGuessed == false)
-            {
-                Count++;
-            }
+            //if (alreadyGuessed == false)
+            //{
+            //    Count++;
+            //}
 
             if (number == _number)
             {
+                _correctNumberGuessed = true;
                 return true;
             }
             else
