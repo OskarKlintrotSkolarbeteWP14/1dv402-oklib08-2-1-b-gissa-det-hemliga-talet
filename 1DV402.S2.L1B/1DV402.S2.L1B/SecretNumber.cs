@@ -126,15 +126,16 @@ namespace _1DV402.S2.L1B
 
             if (number < _number)
             {
-                toLow = true;
+                Console.WriteLine(Strings.to_low_prompt, number, GuessesLeft);
             }
             if (number > _number)
             {
-                toHigh = true;
+                Console.WriteLine(Strings.to_high_prompt, number, GuessesLeft);
             }
 
             if (number == _number)
             {
+                Console.WriteLine(Strings.right_prompt, Count);
                 _correctNumberGuessed = true;
                 return true;
             }
