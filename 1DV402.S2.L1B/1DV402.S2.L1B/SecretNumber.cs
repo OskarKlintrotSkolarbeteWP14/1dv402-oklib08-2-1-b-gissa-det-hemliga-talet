@@ -10,10 +10,9 @@ namespace _1DV402.S2.L1B
     {
         #region Fields
 
-        private int[] _guessedNumbers = new int[7];
-        private int _number = 42;
-        private int _count = 0;
-        private bool _correctNumberGuessed = false;
+        private int[] _guessedNumbers;
+        private int _number;
+        private bool _correctNumberGuessed;
         public const int MaxNumberOfGuesses = 7;
 
         #endregion
@@ -40,29 +39,15 @@ namespace _1DV402.S2.L1B
         /// <summary>
         /// Counts how many tries the user had.
         /// </summary>
-        public int Count
-        {
-            get
-            {
-                return _count;
-            }
-
-            private set
-            {
-                _count = value;
-            }
-        }
+        public int Count { get; private set; }
         /// <summary>
         /// How many guesses that the user have remaining.
         /// </summary>
         public int GuessesLeft
         {
             get {
-                if (0 == _count)
-                {
-                    return 7;
-                }
-                return (MaxNumberOfGuesses - Count); }
+                return (MaxNumberOfGuesses - Count); 
+            }
 
             private set { }
         }
@@ -75,6 +60,8 @@ namespace _1DV402.S2.L1B
         /// </summary>
         public SecretNumber()
         {
+            _guessedNumbers = new int[7];
+            
             Initialize();
         }
 
@@ -90,7 +77,7 @@ namespace _1DV402.S2.L1B
 
             Array.Clear(_guessedNumbers, 0, _guessedNumbers.Length);
 
-            _count = 0;
+            Count = 0;
 
             Random random = new Random();
             _number = random.Next(1, 100);
@@ -118,7 +105,6 @@ namespace _1DV402.S2.L1B
             {
                 if (number == guessedNumber)
                 {
-                    //Console.WriteLine(Strings.old_guess_prompt, number);
                     alreadyGuessed = true;
                 }
             }
@@ -157,10 +143,8 @@ namespace _1DV402.S2.L1B
                 Console.WriteLine(Strings.wrong_prompt, _number);
             }
             
-            //else
-            //{
-                return false;
-            //}
+            return false;
+
         }
 
         #endregion
